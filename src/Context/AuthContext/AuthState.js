@@ -53,6 +53,9 @@ const AuthState = ({ children }) => {
     try {
       await axios.get('http://localhost:5000/api/v1/auth/logout')
       checkAuthenticated()
+      dispatch({
+        type:actionTypes.LOGOUT
+      })
     } catch (error) {
       
     }

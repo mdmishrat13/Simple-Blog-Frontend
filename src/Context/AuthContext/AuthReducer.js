@@ -35,7 +35,12 @@ export const AuthReducer= (state,action)=>{
     case actionTypes.CLEAR_ERRORS:
         return{
             ...state,
-            toast:null
+            toasts:null
+        }
+    case actionTypes.LOGOUT:
+        return {
+            ...state,
+            toasts:null
         }
     
 }}
