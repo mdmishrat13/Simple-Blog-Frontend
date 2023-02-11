@@ -2,14 +2,12 @@ import React from "react";
 
 const Profile = () => {
   return (
-    <div classname="bg-gray-100">
-      <div className="container mx-auto my-5 p-5">
-        <div className="md:flex no-wrap md:-mx-2 ">
-          <div className="w-full md:w-3/12 md:mx-2">
-            <div className="bg-white p-3 border-t-4 border-gray-700">
+        <div className="md:flex no-wrap p-5">
+          <div className="bg-white w-full md:w-3/12 md:mx-2">
+            <div className="p-3 border-t-4 border-gray-700">
               <div className="image overflow-hidden">
                 <img
-                  className="h-auto w-full mx-auto"
+                  className="h-48 w-48 mx-auto"
                   src="https://lh3.googleusercontent.com/a/AEdFTp6T5254M-kynpzulODa5aNevNlX1FNukuRv2UaNow=s96-c-rg-br100"
                   alt
                 />
@@ -29,7 +27,7 @@ const Profile = () => {
               </ul>
             </div>
           </div>
-          <div className="w-full md:w-9/12 mx-2 h-64">
+          <div className="w-full md:w-9/12 md:mx-2">
             <div className="bg-white p-3 shadow-sm rounded-sm">
               <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
                 <span className="text-green-500">
@@ -88,8 +86,6 @@ const Profile = () => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
   );
 };
 
