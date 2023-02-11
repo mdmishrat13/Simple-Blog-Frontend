@@ -8,7 +8,7 @@ const UserNavbar = () => {
   const [navOpen, setNavOpen] = useState(false);
   return (
     <>
-      <nav className="w-full bg-white shadow">
+      <nav className="w-full bg-white shadow sticky top-0">
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
           <div>
             <div className="flex items-center justify-between py-3 md:py-5 md:block">
@@ -45,7 +45,8 @@ const UserNavbar = () => {
               <li className="">
                 <Link className="hover:bg-gray-200 px-4 py-2 mt-2 font-semibold md:w-auto md:inline md:mt-0 md:ml-4 focus:bg-gray-200 focus:outline-none focus:outline-shadow text-gray-600" to="feeds">Feeds</Link>
               </li>
-              <li
+              <li 
+              // onBlur={()=>setNavExpand(false)}
                 onClick={() => setNavExpand(!navExpand)}
                 className="text-gray-600 relative"
               >
@@ -70,7 +71,7 @@ const UserNavbar = () => {
                 <div
                   className={
                     navExpand
-                      ? "absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48"
+                      ? "absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48 z-50"
                       : "hidden"
                   }
                 >

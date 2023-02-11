@@ -1,3 +1,4 @@
+import Articles from "../Pages/Common/Dashboard/Articles.js/Articles";
 import Dashboard from "../Pages/Common/Dashboard/Dashboard";
 import DashboardMain from "../Pages/Common/Dashboard/DashboardContent/DashboardMain";
 import Profile from "../Pages/Common/Profile/Profile";
@@ -17,7 +18,7 @@ const UserRoutes = [
       },
       {
         path:'articles',
-        element: <h1>articles content will be there</h1>,
+        element: <Articles/>,
       },
       {
         path: 'analytics',
