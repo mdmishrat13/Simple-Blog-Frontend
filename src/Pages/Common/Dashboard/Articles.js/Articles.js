@@ -5,11 +5,11 @@ import Article from "./Article";
 
 const Articles = () => {
   return (
-    <div className="relative overflow-x-auto p-4">
+    <div className="z-1 p-4">
       <div className="pb-4 bg-white p-4">
         <div className="flex justify-between">
         <div className="relative ">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+          <div className="absolute z-10 inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg
               className="w-5 h-5 text-gray-500 dark:text-gray-400"
               aria-hidden="true"

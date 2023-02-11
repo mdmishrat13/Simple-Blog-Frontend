@@ -1,6 +1,9 @@
 import Articles from "../Pages/Common/Dashboard/Articles.js/Articles";
 import Dashboard from "../Pages/Common/Dashboard/Dashboard";
 import DashboardMain from "../Pages/Common/Dashboard/DashboardContent/DashboardMain";
+import EditPassword from "../Pages/Common/Dashboard/Settings/EditPassword";
+import EditProfile from "../Pages/Common/Dashboard/Settings/EditProfile";
+import Settings from "../Pages/Common/Dashboard/Settings/Settings";
 import Profile from "../Pages/Common/Profile/Profile";
 
 const UserRoutes = [
@@ -26,7 +29,16 @@ const UserRoutes = [
       },
       {
         path:'settings',
-        element: <h1>settings content will be there</h1>,
+        element:<Settings/>,
+        children:[{
+          index:true,
+          element:<EditProfile/>
+        },
+        {
+          path:'edit-password',
+          element:<EditPassword/>
+        }
+      ]
       },
     ],
   },

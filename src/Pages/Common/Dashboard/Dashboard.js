@@ -7,7 +7,7 @@ const Dashboard = () => {
   return (
     <section className="overflow-y-scroll w-full grid  grid-cols-[192px_minmax(900px,_1fr)]">
       <div className="">
-        <div className="h-screen fixed z-1">
+        <div className="h-screen fixed z-20">
           <UserSidebar />
         </div>
       </div>
