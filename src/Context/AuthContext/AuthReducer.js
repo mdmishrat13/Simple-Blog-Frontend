@@ -2,7 +2,7 @@ import useAuth from "../../middlewares/contextHooks";
 import actionTypes from "../Actions"
 
 export const InitialState = {
-    toasts:null
+    toasts:null,
   };
 
 export const AuthReducer= (state,action)=>{

@@ -8,36 +8,36 @@ const UserSidebar = () => {
   return (
     <div className="w-48">
       <div className="p-2 h-screen overflow-y-auto text-center bg-gray-900">
-        <Link to='' className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+        <Link to='' className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-white text-white hover:text-gray-900">
           <RxDashboard />
-          <span className="text-[15px] ml-4 text-gray-200 font-bold">
+          <p className="text-[15px] ml-4 font-bold">
             Dashboard
-          </span>
+          </p>
         </Link>
-        <Link to='articles' className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+        <Link to='articles' className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer text-white hover:bg-white hover:text-gray-900">
           <RiArticleLine />
-          <span className="text-[15px] ml-4 text-gray-200 font-bold">
+          <p className="text-[15px] ml-4 font-bold">
             Articles
-          </span>
+          </p>
         </Link>
-        <Link to='Analytics' className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+        <Link to='Analytics' className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-white text-white hover:text-gray-900">
           <TbBrandGoogleAnalytics />
-          <span className="text-[15px] ml-4 text-gray-200 font-bold">
+          <p className="text-[15px] ml-4 font-bold">
             Analytics
-          </span>
+          </p>
         </Link>
-        <Link to='settings' className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+        <Link to='settings' className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-white text-white hover:text-gray-900">
           <FiSettings />
-          <span className="text-[15px] ml-4 text-gray-200 font-bold">
+          <p className="text-[15px] ml-4 font-bold">
             Settings
-          </span>
+          </p>
         </Link>
 
-        <div className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+        <div className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-white text-white hover:text-gray-900">
           <FiLogOut/>
-          <span className="text-[15px] ml-4 text-gray-200 font-bold">
+          <p className="text-[15px] ml-4 font-bold">
             Logout
-          </span>
+          </p>
         </div>
       </div>
     </div>

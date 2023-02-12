@@ -3,8 +3,11 @@ import { Navigate } from 'react-router-dom';
 import useAuth from '../middlewares/contextHooks';
 
 const UserRoute = ({children}) => {
-    const {isAuthenticated,checkAuthenticated}= useAuth()
-    checkAuthenticated()
+    const {isAuthenticated,checkAuthenticated,isAuthLoading}= useAuth()
+    if(isAuthLoading){
+        return <h1>Loading</h1>
+    }
+    console.log('consoling isloading',isAuthLoading)
     if(!isAuthenticated){
        return <Navigate to='/login' replace={true}/>
     }

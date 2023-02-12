@@ -1,6 +1,8 @@
 import Articles from "../Pages/Common/Dashboard/Articles.js/Articles";
+import CreatePost from "../Pages/Common/Dashboard/CreatePost/CreatePost";
 import Dashboard from "../Pages/Common/Dashboard/Dashboard";
 import DashboardMain from "../Pages/Common/Dashboard/DashboardContent/DashboardMain";
+import EditPost from "../Pages/Common/Dashboard/EditPost/EditPost";
 import EditPassword from "../Pages/Common/Dashboard/Settings/EditPassword";
 import EditProfile from "../Pages/Common/Dashboard/Settings/EditProfile";
 import Settings from "../Pages/Common/Dashboard/Settings/Settings";
@@ -22,6 +24,14 @@ const UserRoutes = [
       {
         path:'articles',
         element: <Articles/>,
+      },
+      {
+        path:'create-post',
+        element: <CreatePost/>,
+      },
+      {
+        path:'edit-post/:id',
+        element: <EditPost/>,
       },
       {
         path: 'analytics',

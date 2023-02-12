@@ -1,6 +1,7 @@
 import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { AiOutlineDollarCircle } from "react-icons/ai";
+import { Link } from "react-router-dom";
 import Article from "../Articles.js/Article";
 
 const DashboardMain = () => {
@@ -14,9 +15,11 @@ const DashboardMain = () => {
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae,
               nam.
             </p>
-            <button className="flex item-center rounded-md px-4 py-2 bg-gray-600 duration-300 text-white hover:bg-gray-700">
+            <button>
+            <Link to='create-post' className="flex item-center rounded-md px-4 py-2 bg-gray-600 duration-300 text-white hover:bg-gray-700">
               <AiOutlinePlus className=" block mr-2 mt-1 text-lg" />
               Write a new post
+            </Link>
             </button>
           </div>
         </div>

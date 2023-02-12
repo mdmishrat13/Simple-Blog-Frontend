@@ -1,6 +1,7 @@
 import React from "react";
 import { AiOutlinePlus,AiFillDelete } from "react-icons/ai";
 import {FaEdit} from 'react-icons/fa'
+import { Link } from "react-router-dom";
 import Article from "./Article";
 
 const Articles = () => {
@@ -31,9 +32,11 @@ const Articles = () => {
             placeholder="Search for items"
           />
         </div>
-        <div className="px-4 py-2 bg-gray-600 text-white cursor-pointer hover:bg-gray-700 flex item-center">
+        <button>
+        <Link to='/user/dashboard/create-post' className="px-4 py-2 bg-gray-600 text-white cursor-pointer hover:bg-gray-700 flex item-center">
           <AiOutlinePlus className="block text-lg mt-1"/>  Add New Post
-        </div>
+        </Link>
+        </button>
         </div>
       </div>
       <Article/>

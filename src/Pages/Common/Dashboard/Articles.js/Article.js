@@ -1,6 +1,7 @@
 import React from 'react';
 import {AiFillDelete } from "react-icons/ai";
 import {FaEdit} from 'react-icons/fa'
+import { Link } from 'react-router-dom';
 const Article = () => {
     return (
         <table className="text-sm w-full text-left text-gray-500 p-2">
@@ -36,9 +37,9 @@ const Article = () => {
             <td className="px-4 py-2">2.5k</td>
             <td className="px-4 py-2">1.3k</td>
             
-            <td className="px-4 py-2 cursor-pointer">
+            <Link to='/user/dashboard/edit-post/something' className="px-4 py-2 cursor-pointer">
              <FaEdit className="text-xl block mx-auto"/>
-            </td>
+            </Link>
             <td className="px-4 py-2 cursor-pointer">
              <AiFillDelete className="text-xl block mx-auto"/>
             </td>
