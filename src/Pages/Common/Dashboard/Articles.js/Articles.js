@@ -40,6 +40,9 @@ const Articles = () => {
         </div>
       </div>
       <Article/>
+      <Article/>
+      <Article/>
+      <Article/>
     </div>
   );
 };

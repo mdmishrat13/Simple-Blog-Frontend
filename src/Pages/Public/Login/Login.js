@@ -4,7 +4,7 @@ import { BiShow, BiHide } from "react-icons/bi";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import useAuth from "../../../middlewares/contextHooks";
+import useAuth from "../../../middlewares/authContextHooks";
 import { toast } from "react-toastify";
 
 const Login = () => {

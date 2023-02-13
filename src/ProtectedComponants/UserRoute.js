@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import useAuth from '../middlewares/contextHooks';
+import useAuth from '../middlewares/authContextHooks';
 
 const UserRoute = ({children}) => {
     const {isAuthenticated,checkAuthenticated,isAuthLoading}= useAuth()

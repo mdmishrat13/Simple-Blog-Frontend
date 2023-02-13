@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import useAuth from "../../middlewares/contextHooks";
+import useAuth from "../../middlewares/authContextHooks";
 
 const UserNavbar = () => {
   const { logoutUser } = useAuth();

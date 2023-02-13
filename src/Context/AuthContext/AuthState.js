@@ -90,9 +90,24 @@ const AuthState = ({ children }) => {
     }
   };
 
-  useEffect(()=>{
-    checkAuthenticated()
-  },[])
+  
+  const getUser = async()=>{
+    setAuthIsLoading(true)
+    try {
+      const res = await axios.post(`http://localhost:5000/api/v1/auth/profile`);
+      dispatch({
+        type:actionTypes.GET_USER,
+        payload:res.data
+      })
+      setAuthIsLoading(false)
+    } catch (error) {
+      dispatch({
+        type:actionTypes.GET_USER_FAIL,
+        payload:{errorMessage:'There is an error'}
+      })
+      setAuthIsLoading(false)
+    }
+  }
 
   const getUsers = async () => {
     try {
@@ -109,6 +124,11 @@ const AuthState = ({ children }) => {
       });
     }
   };
+  useEffect(()=>{
+    checkAuthenticated()
+    getUser()
+  },[])
+
 
   return (
     <AuthContext.Provider
@@ -121,7 +141,8 @@ const AuthState = ({ children }) => {
         clearErrors,
         isAuthenticated,
         checkAuthenticated,
-        isAuthLoading
+        isAuthLoading,
+        getUser,
       }}
     >
       {children}

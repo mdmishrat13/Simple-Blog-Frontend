@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BiShow, BiHide } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
-import useAuth from "../../../middlewares/contextHooks";
+import useAuth from "../../../middlewares/authContextHooks";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";

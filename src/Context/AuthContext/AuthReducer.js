@@ -1,8 +1,9 @@
-import useAuth from "../../middlewares/contextHooks";
+import useAuth from "../../middlewares/authContextHooks";
 import actionTypes from "../Actions"
 
 export const InitialState = {
     toasts:null,
+    currentUser:null
   };
 
 export const AuthReducer= (state,action)=>{
@@ -23,13 +24,26 @@ export const AuthReducer= (state,action)=>{
     case actionTypes.REGISTER_SUCCESS:
         return{
             ...state,
+            currentUser:action.payload.data,
             toasts:action.payload.status,
 
         }
     case actionTypes.LOGIN_SUCCESS:
         return{
             ...state,
+            currentUser:action.payload.data,
             toasts:action.payload.status,
+        }
+    case actionTypes.GET_USER:
+        return{
+            ...state,
+            currentUser:action.payload,
+        }
+    case actionTypes.GET_USER_FAIL:
+        return{
+            ...state,
+            toast:action.payload.errorMessage,
+            currentUser:null
         }
 
     case actionTypes.CLEAR_ERRORS:

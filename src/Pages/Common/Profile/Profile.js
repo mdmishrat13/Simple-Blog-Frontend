@@ -1,6 +1,17 @@
 import React from "react";
+import useAuth from "../../../middlewares/authContextHooks";
 
 const Profile = () => {
+  const {currentUser,getUser,isAuthLoading} = useAuth()
+  if(!currentUser){
+    getUser()
+  }
+  if(isAuthLoading){
+    return <h1 className="text-center">Loading....</h1>
+  }
+  console.log(currentUser)
+  const{firstName,lastName,email} = currentUser;
+  
   return (
         <div className="md:flex no-wrap p-5">
           <div className="bg-white w-full md:w-3/12 md:mx-2">
@@ -13,7 +24,7 @@ const Profile = () => {
                 />
               </div>
               <h1 className="text-gray-900 font-bold text-xl text-center leading-8 my-1">
-                Md Mishrat Hossain
+                {firstName} {lastName}
               </h1>
               <h3 className="text-gray-600 text-center font-lg text-semibold leading-6">
               MERN Stack developer || React Js ‌‌|| Node js || Express js || MongoDb || Redux || Firebase Authentication || Javascript
@@ -53,7 +64,7 @@ const Profile = () => {
                 <div className="grid text-md">
                   <div className="grid grid-cols-2">
                     <div className="px-4 py-2 font-semibold">Name</div>
-                    <div className="px-4 py-2">Md Mishrat Hossain</div>
+                    <div className="px-4 py-2">{firstName+" "+lastName}</div>
                   </div>
                   <div className="grid grid-cols-2">
                     <div className="px-4 py-2 font-semibold">Gender</div>
@@ -74,7 +85,7 @@ const Profile = () => {
                   <div className="grid grid-cols-2">
                     <div className="px-4 py-2 font-semibold">Email</div>
                     <div className="px-4 py-2">
-                       <p> mdmishrat13@gmail.com</p>
+                       <p>{email}</p>
                     </div>
                   </div>
                   <div className="grid grid-cols-2">
