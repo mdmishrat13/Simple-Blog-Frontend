@@ -6,7 +6,7 @@ import PostReducer, { initialState } from "./PostReducer";
 export const PostContext = createContext();
 const PostState = ({ children }) => {
   const [state, dispatch] = useReducer(PostReducer, initialState);
-  const [isPostLoading, setIsPostLoading] = useState(true);
+  const [isPostLoading, setIsPostLoading] = useState(false);
 
   const createPost = async (postData) => {
     setIsPostLoading(true);
@@ -27,12 +27,34 @@ const PostState = ({ children }) => {
     }
   };
 
+
+  const getMyPosts = async()=>{
+    setIsPostLoading(true)
+    try {
+      const res = await axios.post('http://localhost:5000/api/v1/posts/my-posts')
+      dispatch({
+        type:actionTypes.GET_MY_POSTS,
+        payload:res.data
+      })
+      setIsPostLoading(false)
+    } catch (error) {
+      dispatch({
+        type:actionTypes.GET_MY_POSTS_FAIL,
+        payload:error.message
+      })
+      setIsPostLoading(false)
+    }
+  }
+
   return (
     <PostContext.Provider
       value={{
         isPostLoading,
         createPost,
-        toasts:state.toasts
+        toasts:state.toasts,
+        getMyPosts,
+        myPosts:state.myPosts
+
       }}
     >
       {children}

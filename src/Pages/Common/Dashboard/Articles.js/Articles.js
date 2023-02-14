@@ -2,9 +2,14 @@ import React from "react";
 import { AiOutlinePlus,AiFillDelete } from "react-icons/ai";
 import {FaEdit} from 'react-icons/fa'
 import { Link } from "react-router-dom";
+import usePost from "../../../../middlewares/postContextHooks";
 import Article from "./Article";
 
 const Articles = () => {
+  const {myPosts,getMyPosts}= usePost()
+  if(!myPosts){
+    getMyPosts()
+  }
   return (
     <div className="z-1 p-4">
       <div className="pb-4 bg-white p-4">
@@ -39,10 +44,33 @@ const Articles = () => {
         </button>
         </div>
       </div>
-      <Article/>
-      <Article/>
-      <Article/>
-      <Article/>
+      {/* articles will be there  */}
+      <table className="text-sm w-full text-left text-gray-500 p-2">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+          <tr>
+            <th scope="col" className="px-4 py-2">
+             Post Titles
+            </th>
+            <th scope="col" className="px-4 py-2">
+              Reacts
+            </th>
+            <th scope="col" className="px-4 py-2">
+              Comments
+            </th>
+            
+            <th scope="col" className="px-4 py-2">
+              Update
+            </th>
+            <th scope="col" className="px-4 py-2">
+              Delete
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {myPosts.map(post=><Article post={post} key={post._id}></Article>)}
+        </tbody>
+      </table>
+      {!myPosts.length&&<h1 className="text-center p-4 text-xl bg-white"> You have no post</h1>}
     </div>
   );
 };
