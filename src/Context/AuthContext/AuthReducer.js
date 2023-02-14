@@ -1,4 +1,3 @@
-import useAuth from "../../middlewares/authContextHooks";
 import actionTypes from "../Actions"
 
 export const InitialState = {

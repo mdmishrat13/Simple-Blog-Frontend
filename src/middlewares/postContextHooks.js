@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import {AuthContext} from './../Context/AuthContext/AuthState'
+import { PostContext } from "../Context/PostContext/PostState";
 
-const useAuth = ()=>{
-   return useContext(AuthContext)
+const usePost = ()=>{
+   return useContext(PostContext)
 }
 
-export default useAuth
+export default usePost
