@@ -2,7 +2,8 @@ import actionTypes from "../Actions"
 export const initialState = {
     toasts:null,
     myPosts:[],
-    post:null
+    post:null,
+    feeds:[]
 }
 
 const PostReducer = (state,action)=>{
@@ -62,6 +63,17 @@ const PostReducer = (state,action)=>{
             return{
                 ...state,
                 toast:action.payload
+            }
+
+        case actionTypes.GET_FEEDS:
+            return{
+                ...state,
+                feeds:action.payload
+            }
+        case actionTypes.GET_FEEDS_FAIL:
+            return{
+                ...state,
+                toasts:action.payload
             }
     }
 }

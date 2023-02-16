@@ -6,12 +6,13 @@ import EditPost from "../Pages/Common/Dashboard/EditPost/EditPost";
 import EditPassword from "../Pages/Common/Dashboard/Settings/EditPassword";
 import EditProfile from "../Pages/Common/Dashboard/Settings/EditProfile";
 import Settings from "../Pages/Common/Dashboard/Settings/Settings";
+import Feeds from "../Pages/Common/Feeds/Feeds";
 import Profile from "../Pages/Common/Profile/Profile";
 
 const UserRoutes = [
   {
     index: true,
-    element: <h1>This is home page</h1>,
+    element: <Feeds/>,
   },
   {
     path: "dashboard",
@@ -58,7 +59,7 @@ const UserRoutes = [
   },
   {
     path: "feeds",
-    element: <h1>this is feeds page</h1>,
+    element:<Feeds/>,
   },
 
   {

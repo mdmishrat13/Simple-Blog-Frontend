@@ -103,8 +103,28 @@ const PostState = ({ children }) => {
       setIsPostLoading(false)
     }
   }
+
+
+  const getFeeds = async()=>{
+    setIsPostLoading(true)
+    try {
+      const res= await axios.get('http://localhost:5000/api/v1/posts/posts')
+      dispatch({
+        type:actionTypes.GET_FEEDS,
+        payload:res.data
+      })
+      setIsPostLoading(false)
+    } catch (error) {
+      dispatch({
+        type:actionTypes.GET_FEEDS_FAIL,
+        payload:error.message
+      })
+      setIsPostLoading(false)
+    }
+  }
   useEffect(() => {
     getMyPosts();
+    getFeeds()
   }, []);
 
 
@@ -119,7 +139,9 @@ const PostState = ({ children }) => {
         deletePost,
         post:state.post,
         getPost,
-        updatePost
+        updatePost,
+        getFeeds,
+        feeds:state.feeds
       }}
     >
       {children}

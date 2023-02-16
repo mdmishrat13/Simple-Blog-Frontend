@@ -22,6 +22,8 @@ const actionTypes = {
     DELETE_POST_FAIL:'DELETE_POST_FAIL',
     GET_MY_POSTS:'GET_MY_POSTS',
     GET_MY_POSTS_FAIL:'GET_MY_POSTS_FAIL',
+    GET_FEEDS:'GET_FEEDS',
+    GET_FEEDS_FAIL:'GET_FEEDS_FAIL'
 }
 
 export default actionTypes
