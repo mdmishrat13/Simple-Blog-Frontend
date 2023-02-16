@@ -1,7 +1,8 @@
 import actionTypes from "../Actions"
 export const initialState = {
     toasts:null,
-    myPosts:[]
+    myPosts:[],
+    post:null
 }
 
 const PostReducer = (state,action)=>{
@@ -27,6 +28,40 @@ const PostReducer = (state,action)=>{
             return{
                 ...state,
                 toasts:action.payload
+            }
+
+        case actionTypes.DELETE_POST:
+            return{
+                ...state,
+                toasts:action.payload,
+            }
+        case actionTypes.DELETE_POST_FAIL:
+            return{
+                ...state,
+                toasts:action.payload
+            }
+
+        case actionTypes.GET_POST:
+            return{
+                ...state,
+                post:action.payload
+            }
+        case actionTypes.GET_POST_FAIL:
+            return{
+                ...state,
+                toast:action.payload
+            }
+
+        case actionTypes.UPDATE_POST:
+            return{
+                ...state,
+                toast:action.payload.status,
+                post:action.payload.data
+            }
+        case actionTypes.UPDATE_POST_FAIL:
+            return{
+                ...state,
+                toast:action.payload
             }
     }
 }

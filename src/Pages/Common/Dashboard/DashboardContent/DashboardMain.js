@@ -6,8 +6,10 @@ import usePost from "../../../../middlewares/postContextHooks";
 import Article from "../Articles.js/Article";
 
 const DashboardMain = () => {
-  const {myPosts,getMyPosts}= usePost()
-    getMyPosts()
+  const {myPosts,isPostLoading}= usePost()
+  if(isPostLoading){
+    return<h1>Loading</h1>
+  }
   return (
     <div className="p-4">
       <div className="grid grid-cols-1 gap-2">
