@@ -1,7 +1,8 @@
 import actionTypes from "../Actions";
 
 export const initialState = {
-    toasts:null
+    toasts:null,
+    comments:null
 }
 
 
@@ -13,6 +14,16 @@ export const CommentReducer = (state,action)=>{
                 toasts:action.payload.status
             }
         case actionTypes.CREATE_COMMENT_FAIL:
+            return{
+                ...state,
+                toasts:action.payload
+            }
+        case actionTypes.GET_A_POST_COMMENT:
+            return{
+                ...state,
+                comments:action.payload
+            }
+        case actionTypes.GET_A_POST_COMMENT_FAIL:
             return{
                 ...state,
                 toasts:action.payload

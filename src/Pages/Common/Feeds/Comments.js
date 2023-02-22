@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useComment from "../../../middlewares/commentContextHooks";
 import boy from "./../../../Assets/Images/boy.jpg";
 import Comment from "./Comment";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import useAuth from "../../../middlewares/authContextHooks";
 import { toast } from "react-toastify";
 
 const Comments = ({ feed }) => {
-  const { createComment, isCommentLoading } = useComment();
-
+  const { createComment,getComment,isCommentLoading } = useComment();
+  const [comments,setComments] =useState([])
+    console.log(comments)
+    const fetchComments = async()=>{
+        const fatchedComments = await getComment(feed)
+        setComments(fatchedComments)
+    }
+    useEffect(()=>{
+        fetchComments()
+    },[getComment])
+    console.log(feed)
   const validationSchema = Yup.object().shape({
     comment: Yup.string(),
   });
@@ -53,15 +61,9 @@ const Comments = ({ feed }) => {
           </div>
         </form>
       </div>
-      <div className="flex gap-2">
-        <img
-          src={boy}
-          className="w-8 h-8 object-cover overflow-hidden rounded-lg"
-        />
-        <div className="bg-gray-200 p-1 rounded-lg w-full">
-          <Comment />
-        </div>
-      </div>
+      {comments?.map(comment=> <Comment key={comment._id} comment={comment}/>)}
+      
+        
     </div>
   );
 };

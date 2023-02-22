@@ -6,7 +6,7 @@ import { CommentReducer, initialState } from "./CommentReducer";
 export const CommentContext = createContext();
 
 const CommentState = ({ children }) => {
-  const { state, dispatch } = useReducer(CommentReducer, initialState);
+  const [state, dispatch ] = useReducer(CommentReducer, initialState);
   const [isCommentLoading, setIsCommentLoading] = useState(false);
   const createComment = async (data) => {
     setIsCommentLoading(true);
@@ -25,11 +25,30 @@ const CommentState = ({ children }) => {
         type: actionTypes.CREATE_COMMENT_FAIL,
         payload: error.message,
       });
-      setIsCommentLoading(false)
+      setIsCommentLoading(false);
+    }
+  };
+
+  const getComment = async (id) => {
+    try {
+      const res = await axios.get(`http://localhost:5000/api/v1/comment/comments/${id}`);
+      return res.data
+    } catch (error) {
+      dispatch({
+        type: actionTypes.GET_A_POST_COMMENT_FAIL,
+        payload: error.message,
+      });
     }
   };
   return (
-    <CommentContext.Provider value={{ createComment ,isCommentLoading}}>
+    <CommentContext.Provider
+      value={{
+        createComment,
+        getComment,
+        comments: state.comments,
+        isCommentLoading,
+      }}
+    >
       {children}
     </CommentContext.Provider>
   );
