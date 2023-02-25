@@ -1,12 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { GrView } from "react-icons/gr";
 import boy from "./../../../Assets/Images/boy.jpg";
-import Comments from "./Comments";
+
+import Comment from "./Comment";
+import * as Yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
+import useComment from "../../../middlewares/commentContextHooks";
 
 const Feed = ({ feed }) => {
   const [commentExpand,setCommentExpand]= useState(false)
+  const { createComment,getComment,isCommentLoading } = useComment();
+  const [comments,setComments] =useState([])
+    console.log('fetched comment',comments)
+    const fetchComments = async()=>{
+        const fatchedComments = await getComment(feed._id)
+        setComments(fatchedComments)
+    }
+    useEffect(()=>{
+        fetchComments()
+    },[getComment])
+  const validationSchema = Yup.object().shape({
+    comment: Yup.string(),
+  });
+
+  const formOptions = { resolver: yupResolver(validationSchema) };
+  const { register, handleSubmit, reset, formState } = useForm(formOptions);
+  const { errors } = formState;
+
+  const onSubmit = async (data) => {
+    createComment({ ...data, post: feed });
+    reset()
+  };
   return (
     <div className="bg-white p-4 rounded shadow">
       <div className="flex gap-2 pb-2">
@@ -37,7 +65,7 @@ const Feed = ({ feed }) => {
         </div>
         <button className="flex items-center justify-center gap-1" onClick={()=>setCommentExpand(!commentExpand)}>
           <FaRegComment className="focus:bg-gray-300 text-2xl inline-block text-center" />
-          <p className="text-xl">46</p>
+          <p className="text-xl">{comments.length==0?'':comments.length}</p>
         </button>
         <button className="flex items-center justify-end gap-1" onClick={()=>setCommentExpand(!commentExpand)}>
           <GrView className="focus:bg-gray-300 text-2xl inline-block" />
@@ -45,7 +73,39 @@ const Feed = ({ feed }) => {
         </button>
       </div>
       <div className={`${commentExpand?"block":'hidden'}`}>
-      <Comments feed={feed._id}/>
+      <div className="border border-gray-200" />
+      <div className="flex gap-3 my-2 py-2 ">
+        <img
+          src={boy}
+          className="w-8 h-8 object-cover overflow-hidden rounded-lg"
+        />
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+          <div className="rounded-lg w-full ">
+            <textarea
+            required
+            rows={1}
+              {...register("comment")}
+              className="border-1 bg-gray-200  rounded-r px-4 py-2 w-full"
+              type="text"
+              placeholder="Leave a comment"
+            />
+          </div>
+          <div className="text-right">
+          <button
+            type="submit"
+            className="px-4 py-2 bg-gray-300 rounded-md font-semibold hover:bg-gray-600 hover:text-white"
+          >
+            Submit
+          </button>
+          </div>
+        </form>
+      </div>
+      <div className="mt-2">
+      
+      {comments?.map(comment=> <Comment key={comment._id} comment={comment}/>)}
+      
+        
+    </div>
       </div>
     </div>
   );
