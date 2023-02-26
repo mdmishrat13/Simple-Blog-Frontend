@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
-import { FaRegComment } from "react-icons/fa";
+import {FaRegComment } from "react-icons/fa";
+import {TiArrowUpOutline, TiArrowUpThick}from "react-icons/ti"
 import { GrView } from "react-icons/gr";
 import boy from "./../../../Assets/Images/boy.jpg";
 
@@ -10,22 +10,39 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import useComment from "../../../middlewares/commentContextHooks";
+import { TbArrowBigDown, TbArrowBigTop } from "react-icons/tb";
+import useReact from "../../../middlewares/reactsContextHooks";
 
 const Feed = ({ feed }) => {
   const [commentExpand,setCommentExpand]= useState(false)
+  const [liked,setLiked] = useState(false)
   const { createComment,getComment,isCommentLoading } = useComment();
+  const {getLikes,createLike,removeLike,checkLiked}= useReact();
   const [comments,setComments] =useState([])
-    console.log('fetched comment',comments)
+  const [likes,setLikes]= useState([])
+
     const fetchComments = async()=>{
         const fatchedComments = await getComment(feed._id)
         setComments(fatchedComments)
     }
+    const fetchLiked = async()=>{
+        const data = await checkLiked(feed._id)
+        setLiked(data.data)
+    }
+    const fetchLikes = async()=>{
+      const likes = await getLikes(feed._id)
+      setLikes(likes)
+    }
     useEffect(()=>{
         fetchComments()
-    },[getComment])
+        fetchLiked()
+        fetchLikes()
+    },[getComment,createLike,removeLike])
   const validationSchema = Yup.object().shape({
     comment: Yup.string(),
   });
+
+  console.log(liked)
 
   const formOptions = { resolver: yupResolver(validationSchema) };
   const { register, handleSubmit, reset, formState } = useForm(formOptions);
@@ -35,6 +52,20 @@ const Feed = ({ feed }) => {
     createComment({ ...data, post: feed });
     reset()
   };
+
+  const handleLike = async()=>{
+    if(!liked){
+      const newLikes= await createLike(feed._id)
+      setLiked(true)
+      setLikes([...likes,newLikes])
+    }
+    if(liked){
+      const removedLikes = await removeLike(feed._id)
+      setLiked(false)
+      const newLikes = likes.filter(like=>like._id !== removedLikes._id)
+      setLikes(newLikes)
+    }
+  }
   return (
     <div className="bg-white p-4 rounded shadow">
       <div className="flex gap-2 pb-2">
@@ -54,12 +85,12 @@ const Feed = ({ feed }) => {
       <div className="mt-4 border border-gray-200" />
       <div className="grid grid-cols-3 mt-2 gap-4 rounded-md inline-block p-1">
         <div className="flex items-center gap-4 text-center">
-          <button className="flex items-center justify-center gap-1">
-            <AiOutlineLike className="text-2xl block text-center " />
-            <p className="text-xl">42</p>
+          <button onClick={handleLike} className="flex items-center justify-center gap-1">
+            {!liked?<TiArrowUpOutline className="text-2xl block text-center " />:<TiArrowUpThick className="text-2xl block text-center"/>}
+            <p className="text-xl">{likes?.length}</p>
           </button>
           <button className="flex items-center justify-center gap-1">
-            <AiOutlineDislike className="text-2xl block text-center" />
+            <TbArrowBigDown className="text-2xl text-black bg-gray-400 text-center" />
             <p className="text-xl">12</p>
           </button>
         </div>

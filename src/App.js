@@ -7,6 +7,7 @@ import AuthState from "./Context/AuthContext/AuthState";
 import axios from "axios";
 import PostState from "./Context/PostContext/PostState";
 import CommentState from "./Context/CommentContext/CommentState";
+import ReactState from "./Context/ReactContext/ReactState";
 
 axios.defaults.withCredentials = true;
 
@@ -16,8 +17,10 @@ function App() {
       <AuthState>
         <PostState>
           <CommentState>
+          <ReactState>
           <RouterProvider router={router} />
           <ToastContainer />
+          </ReactState>
           </CommentState>
         </PostState>
       </AuthState>
