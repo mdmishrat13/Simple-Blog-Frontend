@@ -1,11 +1,13 @@
 import React from "react";
 import useAuth from "../../../middlewares/authContextHooks";
+import { useParams } from "react-router-dom";
 
-const Profile = () => {
-  const { currentUser, getProfile, isAuthLoading } = useAuth();
-  if (!currentUser) {
-    getProfile();
-  }
+const PublicProfile = () => {
+    const params = useParams()
+  const { currentUser, getProfile , isAuthLoading } = useAuth();
+//   if (!currentUser) {
+//     getProfile(params?.id);
+//   }
   if (isAuthLoading) {
     return <h1 className="text-center">Loading....</h1>;
   }
@@ -139,4 +141,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default PublicProfile;

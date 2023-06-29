@@ -3,7 +3,7 @@ export const initialState = {
     toasts:null,
     myPosts:[],
     post:null,
-    feeds:[]
+    feeds:null
 }
 
 const PostReducer = (state,action)=>{

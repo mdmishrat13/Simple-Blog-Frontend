@@ -3,73 +3,163 @@ import { createContext, useEffect, useReducer, useState } from "react";
 import actionTypes from "../Actions";
 import ReactReducer, { initialState } from "./ReactReducer";
 
+export const ReactContext = createContext();
 
-export const ReactContext = createContext()
-
-const ReactState = ({children})=>{
-    const [state, dispatch] = useReducer(ReactReducer, initialState);
+const ReactState = ({ children }) => {
+  const [state, dispatch] = useReducer(ReactReducer, initialState);
   const [isReactLoading, setIsReactLoading] = useState(false);
 
-  const createLike = async(post)=>{
+  const createLike = async (post) => {
     try {
-        const res = await axios.post('http://localhost:5000/api/v1/reacts/like',{post})
-        // dispatch({
-        //     type:actionTypes.CREATE_LIKE,
-        //     payload:res.data
-        // })
-        return res.data
+      const res = await axios.post("http://localhost:5000/api/v1/reacts/like", {
+        post,
+      });
+      // dispatch({
+      //     type:actionTypes.CREATE_LIKE,
+      //     payload:res.data
+      // })
+      return res.data;
     } catch (error) {
-        // dispatch({
-        //     type:actionTypes.CREATE_LIKE_FAIL,
-        //     payload:error.message
-        // })
-        console.log(error.message)
+      // dispatch({
+      //     type:actionTypes.CREATE_LIKE_FAIL,
+      //     payload:error.message
+      // })
+      console.log(error.message);
     }
-  } 
-  const removeLike = async(id)=>{
+  };
+  const removeLike = async (id) => {
     try {
-        const res = await axios.delete(`http://localhost:5000/api/v1/reacts/like/${id}`)
-        // dispatch({
-        // type:actionTypes.REMOVE_LIKE,
-        // payload:res.data
-        // })
-        return res.data
+      const res = await axios.delete(
+        `http://localhost:5000/api/v1/reacts/like/${id}`
+      );
+      // dispatch({
+      // type:actionTypes.REMOVE_LIKE,
+      // payload:res.data
+      // })
+      return res.data;
     } catch (error) {
-        console.log(error.message)
-        // dispatch({
-        //     type:actionTypes.REMOVE_LIKE_FAIL,
-        //     payload:error.message
-        // })
+      console.log(error.message);
+      // dispatch({
+      //     type:actionTypes.REMOVE_LIKE_FAIL,
+      //     payload:error.message
+      // })
     }
-  }
+  };
 
-  const getLikes = async(id)=>{
+  const getLikes = async (id) => {
     try {
-        const res = await axios.get(`http://localhost:5000/api/v1/reacts/like/${id}`)
-        // dispatch({
-        //     type:actionTypes.GET_LIKES,
-        //     payload:res.data
-        // })
-        return res.data
+      const res = await axios.get(
+        `http://localhost:5000/api/v1/reacts/like/${id}`
+      );
+      // dispatch({
+      //     type:actionTypes.GET_LIKES,
+      //     payload:res.data
+      // })
+      return res.data;
     } catch (error) {
-        // dispatch({
-        //     type:actionTypes.GET_LIKES_FAIL,
-        //     payload:error.message
-        // })
-        console.log(error.message)
+      // dispatch({
+      //     type:actionTypes.GET_LIKES_FAIL,
+      //     payload:error.message
+      // })
+      console.log(error.message);
     }
-  }
-  const checkLiked = async(id)=>{
+  };
+  const checkLiked = async (id) => {
     try {
-        const res = await axios(`http://localhost:5000/api/v1/reacts/liked/${id}`)
-        return res
+      const res = await axios(
+        `http://localhost:5000/api/v1/reacts/liked/${id}`
+      );
+      return res;
     } catch (error) {
-        return false
+      return false;
     }
-  }
+  };
 
-  return <ReactContext.Provider value={{getLikes,createLike,removeLike,checkLiked}}>{children}</ReactContext.Provider>
-}
+  // unkike
 
-export default ReactState
+  const createDisLike = async (post) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/reacts/dislike",
+        { post }
+      );
+      // dispatch({
+      //     type:actionTypes.CREATE_LIKE,
+      //     payload:res.data
+      // })
+      return res.data;
+    } catch (error) {
+      // dispatch({
+      //     type:actionTypes.CREATE_LIKE_FAIL,
+      //     payload:error.message
+      // })
+    }
+  };
 
+  const removeDisLike = async (id) => {
+    try {
+      const res = await axios.delete(
+        `http://localhost:5000/api/v1/reacts/dislike/${id}`
+      );
+      // dispatch({
+      // type:actionTypes.REMOVE_LIKE,
+      // payload:res.data
+      // })
+      return res.data;
+    } catch (error) {
+      // dispatch({
+      //     type:actionTypes.REMOVE_LIKE_FAIL,
+      //     payload:error.message
+      // })
+    }
+  };
+
+  const getDisLikes = async (id) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/api/v1/reacts/dislike/${id}`
+      );
+      // dispatch({
+      //     type:actionTypes.GET_LIKES,
+      //     payload:res.data
+      // })
+      return res.data;
+    } catch (error) {
+      // dispatch({
+      //     type:actionTypes.GET_LIKES_FAIL,
+      //     payload:error.message
+      // })
+      console.log(error.message);
+    }
+  };
+
+  const checkDisLiked = async (id) => {
+    try {
+      const res = await axios(
+        `http://localhost:5000/api/v1/reacts/disliked/${id}`
+      );
+      return res.data;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  return (
+    <ReactContext.Provider
+      value={{
+        getLikes,
+        createLike,
+        removeLike,
+        checkLiked,
+        createDisLike,
+        removeDisLike,
+        getDisLikes,
+        checkDisLiked
+      }}
+    >
+      {children}
+    </ReactContext.Provider>
+  );
+};
+
+export default ReactState;

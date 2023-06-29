@@ -1,7 +1,7 @@
 import actionTypes from "../Actions"
 
 export const InitialState = {
-    toasts:null,
+    toasts:[],
     currentUser:null
   };
 
@@ -11,13 +11,13 @@ export const AuthReducer= (state,action)=>{
         case actionTypes.REGISTER_FAILED:
             return {
                 ...state,
-                toast:action.payload,
+                // toasts:[...toasts,action.payload],
                 
             }
     case actionTypes.AUTH_ERROR:
         return{
             ...state,
-            toasts:action.payload,
+            // toasts:[...toasts,action.payload],
         }
 
     case actionTypes.REGISTER_SUCCESS:

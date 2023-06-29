@@ -28,5 +28,16 @@ export const CommentReducer = (state,action)=>{
                 ...state,
                 toasts:action.payload
             }
+        case actionTypes.UPDATE_COMMENT:
+            return{
+                ...state,
+                toasts:action.payload
+            }
+        case actionTypes.UPDATE_COMMENT_FAIL:
+        return{
+            ...state,
+            toasts:action.payload
+        }
+            
     }
 }

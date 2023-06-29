@@ -8,6 +8,7 @@ import EditProfile from "../Pages/Common/Dashboard/Settings/EditProfile";
 import Settings from "../Pages/Common/Dashboard/Settings/Settings";
 import Feeds from "../Pages/Common/Feeds/Feeds";
 import Profile from "../Pages/Common/Profile/Profile";
+import PublicProfile from "../Pages/Common/PublicProfile/PublicProfile";
 
 const UserRoutes = [
   {
@@ -56,6 +57,10 @@ const UserRoutes = [
   {
     path: "profile",
     element: <Profile />,
+  },
+  {
+    path: "publicprofile/:id",
+    element: <PublicProfile />,
   },
   {
     path: "feeds",

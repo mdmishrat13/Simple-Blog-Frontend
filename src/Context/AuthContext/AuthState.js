@@ -45,6 +45,7 @@ const AuthState = ({ children }) => {
         type: actionTypes.LOGIN_SUCCESS,
         payload: res.data,
       });
+      console.log('checking logged in user',res.data)
       checkAuthenticated()
       setAuthIsLoading(false)
     } catch (error) {
@@ -55,6 +56,10 @@ const AuthState = ({ children }) => {
       setAuthIsLoading(false)
     }
   };
+
+  const getCurrentUser=()=>{
+
+  }
 
   const logoutUser =async() => {
     try {
@@ -91,27 +96,43 @@ const AuthState = ({ children }) => {
   };
 
   
-  const getUser = async()=>{
+  const getProfile = async(id)=>{
     setAuthIsLoading(true)
     try {
-      const res = await axios.post(`http://localhost:5000/api/v1/auth/profile`);
+      const res = await axios.post(`http://localhost:5000/api/v1/auth/profile/${id}`);
       dispatch({
-        type:actionTypes.GET_USER,
+        type:actionTypes.GET_USER_PROFILE,
         payload:res.data
       })
       setAuthIsLoading(false)
     } catch (error) {
       dispatch({
-        type:actionTypes.GET_USER_FAIL,
+        type:actionTypes.GET_USER_PROFILE_FAIL,
         payload:{errorMessage:'There is an error'}
       })
       setAuthIsLoading(false)
     }
   }
 
+  const getUser = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/v1/auth/user");
+      dispatch({
+        type: actionTypes.GET_USER,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.info(error);
+      dispatch({
+        type: actionTypes.GET_USER_FAIL,
+        payload: error.response.data,
+      });
+    }
+  };
+
   const getUsers = async () => {
     try {
-      const res = axios.get("http://localhost:5000/api/v1/auth/login");
+      const res = await axios.get("http://localhost:5000/api/v1/auth/login");
       dispatch({
         type: actionTypes.GET_USERS,
         payload: res.data,
@@ -134,7 +155,7 @@ const AuthState = ({ children }) => {
     <AuthContext.Provider
       value={{
         toasts: state.toasts,
-        currentUser: state.currentUser,
+        currentUser:state.currentUser,
         registerUser,
         loginUser,
         logoutUser,
@@ -142,7 +163,8 @@ const AuthState = ({ children }) => {
         isAuthenticated,
         checkAuthenticated,
         isAuthLoading,
-        getUser,
+        // getUser,
+        getProfile,
       }}
     >
       {children}

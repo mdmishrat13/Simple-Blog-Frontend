@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import useComment from "../../../middlewares/commentContextHooks";
+import useAuth from "../../../middlewares/authContextHooks";
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment,handleDelete,setComment,commen}) => {
+  const [editComment, setEditComment] = useState(false);
+  const [updatedData,setUpdatedData] = useState(commen.comment)
+  const {updateComment} = useComment()
+  const {currentUser}= useAuth()
+
+  const handleUpdate = async(data)=>{
+    console.log('consoling edited comment',data)
+    const updatedComment=await updateComment(commen._id,data)
+    console.log('consoling updated Comment',updatedComment)
+    const updated = comment?.filter(cmnt=>cmnt._id!==updatedComment._id)
+    const allUpdated = [...comment,updated]
+    console.log('this all are updated',allUpdated)
+    setComment(allUpdated)
+    setEditComment(!editComment)
+    alert('updated successfully')
+  }
+
   return (
     <div className="flex gap-2 my-4">
       <img
@@ -11,7 +30,31 @@ const Comment = ({ comment }) => {
         <p className="font-sm font-semibold text-gray-600 m-0 p-0">
           Md Mishrat Hossain
         </p>
-        <p>{comment.comment}</p>
+        {!editComment ? (
+          <p>{commen.comment}</p>
+        ) : (
+          <textarea
+          onChange={(e)=>setUpdatedData(e.target.value)}
+            className="w-full rounded"
+            rows="2"
+            value={updatedData}
+          ></textarea>
+        )}
+        {commen.user==currentUser._id&&<div>
+        {editComment ? (
+          <div>
+            {" "}
+            <button className="p-1 mr-2" onClick={() => setEditComment(!editComment)}>Cancel</button>
+            <button onClick={() => handleUpdate(updatedData)}>Done</button>
+          </div>
+        ) : (
+          <div>
+            <button className="p-1 mr-2" onClick={() => setEditComment(!editComment)}>Edit</button>
+            <button onClick={()=>handleDelete(commen._id)} className="mr-3">Delete</button>{" "}
+          </div>
+        )}
+          
+          </div>}
       </div>
     </div>
   );
