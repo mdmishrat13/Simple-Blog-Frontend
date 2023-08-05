@@ -11,11 +11,12 @@ const Comment = ({ comment,handleDelete,setComment,commen}) => {
   const handleUpdate = async(data)=>{
     console.log('consoling edited comment',data)
     const updatedComment=await updateComment(commen._id,data)
-    console.log('consoling updated Comment',updatedComment)
-    const updated = comment?.filter(cmnt=>cmnt._id!==updatedComment._id)
-    const allUpdated = [...comment,updated]
-    console.log('this all are updated',allUpdated)
-    setComment(allUpdated)
+    const updated = comment?.map(cmnt=>{
+      if(cmnt._id==updatedComment._id){
+        return{...cmnt,comment:updateComment}
+      }
+    })
+    setComment(updated)
     setEditComment(!editComment)
     alert('updated successfully')
   }

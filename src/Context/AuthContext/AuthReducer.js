@@ -2,7 +2,9 @@ import actionTypes from "../Actions"
 
 export const InitialState = {
     toasts:[],
-    currentUser:null
+    currentUser:null,
+    profile:null,
+    users:null
   };
 
 export const AuthReducer= (state,action)=>{
@@ -12,6 +14,7 @@ export const AuthReducer= (state,action)=>{
             return {
                 ...state,
                 // toasts:[...toasts,action.payload],
+                toasts:action.payload
                 
             }
     case actionTypes.AUTH_ERROR:
@@ -41,8 +44,18 @@ export const AuthReducer= (state,action)=>{
     case actionTypes.GET_USER_FAIL:
         return{
             ...state,
-            toast:action.payload.errorMessage,
+            // toasts:[...toasts,action.payload.errorMessage],
             currentUser:null
+        }
+    case actionTypes.GET_USER_PROFILE:
+        return{
+            ...state,
+            profile:action.payload
+        }
+    case actionTypes.GET_USER_FAIL:
+        return{
+            ...state,
+            // toasts:[...toasts,action.payload.errorMessage]
         }
 
     case actionTypes.CLEAR_ERRORS:
@@ -54,6 +67,17 @@ export const AuthReducer= (state,action)=>{
         return {
             ...state,
             toasts:null
+        }
+
+    case actionTypes.GET_USERS:
+        return{
+            ...state,
+            users:action.payload
+        }
+    case actionTypes.GET_USERS_FAIL:
+        return{
+            ...state,
+            toasts:action.payload
         }
     
 }}

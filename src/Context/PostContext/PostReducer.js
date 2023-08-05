@@ -1,7 +1,7 @@
 import actionTypes from "../Actions"
 export const initialState = {
     toasts:null,
-    myPosts:[],
+    myPosts:null,
     post:null,
     feeds:null
 }

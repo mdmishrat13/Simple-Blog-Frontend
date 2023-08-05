@@ -57,10 +57,6 @@ const AuthState = ({ children }) => {
     }
   };
 
-  const getCurrentUser=()=>{
-
-  }
-
   const logoutUser =async() => {
     try {
       setAuthIsLoading(true)
@@ -99,7 +95,7 @@ const AuthState = ({ children }) => {
   const getProfile = async(id)=>{
     setAuthIsLoading(true)
     try {
-      const res = await axios.post(`http://localhost:5000/api/v1/auth/profile/${id}`);
+      const res = await axios.get(`http://localhost:5000/api/v1/auth/profile/${id}`);
       dispatch({
         type:actionTypes.GET_USER_PROFILE,
         payload:res.data
@@ -132,7 +128,7 @@ const AuthState = ({ children }) => {
 
   const getUsers = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/v1/auth/login");
+      const res = await axios.get("http://localhost:5000/api/v1/auth/users");
       dispatch({
         type: actionTypes.GET_USERS,
         payload: res.data,
@@ -148,6 +144,7 @@ const AuthState = ({ children }) => {
   useEffect(()=>{
     checkAuthenticated()
     getUser()
+    getUsers()
   },[])
 
 
@@ -156,6 +153,8 @@ const AuthState = ({ children }) => {
       value={{
         toasts: state.toasts,
         currentUser:state.currentUser,
+        profile:state.profile,
+        users:state.users,
         registerUser,
         loginUser,
         logoutUser,
@@ -163,7 +162,7 @@ const AuthState = ({ children }) => {
         isAuthenticated,
         checkAuthenticated,
         isAuthLoading,
-        // getUser,
+        getUsers,
         getProfile,
       }}
     >

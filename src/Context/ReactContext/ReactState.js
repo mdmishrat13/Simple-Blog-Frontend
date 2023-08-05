@@ -78,6 +78,7 @@ const ReactState = ({ children }) => {
   // unkike
 
   const createDisLike = async (post) => {
+    setIsReactLoading(true)
     try {
       const res = await axios.post(
         "http://localhost:5000/api/v1/reacts/dislike",
@@ -94,9 +95,11 @@ const ReactState = ({ children }) => {
       //     payload:error.message
       // })
     }
+    setIsReactLoading(false)
   };
 
   const removeDisLike = async (id) => {
+    setIsReactLoading(true)
     try {
       const res = await axios.delete(
         `http://localhost:5000/api/v1/reacts/dislike/${id}`
@@ -112,6 +115,7 @@ const ReactState = ({ children }) => {
       //     payload:error.message
       // })
     }
+    setIsReactLoading(false)
   };
 
   const getDisLikes = async (id) => {
@@ -154,7 +158,8 @@ const ReactState = ({ children }) => {
         createDisLike,
         removeDisLike,
         getDisLikes,
-        checkDisLiked
+        checkDisLiked,
+        isReactLoading
       }}
     >
       {children}

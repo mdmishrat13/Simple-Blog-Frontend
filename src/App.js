@@ -8,6 +8,7 @@ import axios from "axios";
 import PostState from "./Context/PostContext/PostState";
 import CommentState from "./Context/CommentContext/CommentState";
 import ReactState from "./Context/ReactContext/ReactState";
+import FollowState from "./Context/FollowContext/FollowState";
 
 axios.defaults.withCredentials = true;
 
@@ -18,8 +19,10 @@ function App() {
         <PostState>
           <CommentState>
           <ReactState>
+          <FollowState>
           <RouterProvider router={router} />
           <ToastContainer />
+          </FollowState>
           </ReactState>
           </CommentState>
         </PostState>

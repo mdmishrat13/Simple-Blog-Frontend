@@ -1,20 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useAuth from "../../../middlewares/authContextHooks";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const PublicProfile = () => {
-    const params = useParams()
-  const { currentUser, getProfile , isAuthLoading } = useAuth();
-//   if (!currentUser) {
-//     getProfile(params?.id);
-//   }
-  if (isAuthLoading) {
-    return <h1 className="text-center">Loading....</h1>;
+  const [loading,setLoading]= useState(true)
+  const [profile,setUserProfile] = useState(null)
+  const id = useParams()
+
+  const fetchData = async()=>{
+    setLoading(true)
+    const data = await axios.get(`http://localhost:5000/api/v1/auth/profile/${id.id}`)
+    setUserProfile(data.data)
+    setLoading(false)
   }
-  console.log(currentUser);
-  const { firstName, lastName, email,bio,phone,birthDate,gender,pic,address} = currentUser;
+  useEffect(()=>{
+    fetchData(id.id)
+  },[])
 
   return (
+    <>
+    {loading?<p>Loading...</p>:
     <div className="grid items-center justify-center gap-4 p-5">
       <div className="bg-white shadow-sm rounded-sm">
         <div className="p-3">
@@ -26,9 +32,9 @@ const PublicProfile = () => {
             />
           </div>
           <h1 className="text-gray-900 font-bold text-xl text-center leading-8 my-1">
-            {firstName} {lastName}
+            {profile?.firstName} {profile?.lastName}
           </h1>
-          {bio?.length && (
+          {profile?.bio?.length && (
             <h3 className="text-gray-600 md:w-8/12 mx-auto text-center font-lg text-semibold leading-6"></h3>
           )}
           <ul className="bg-gray-100 grid grid-cols-[1fr_1fr] gap-4 text-gray-600 hover:text-gray-700 hover:shadow md:py-1 px-3 mt-3 divide-x rounded shadow-sm">
@@ -108,36 +114,38 @@ const PublicProfile = () => {
               <div className="grid text-md">
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Name</div>
-                  <div className="px-4 py-2">{firstName + " " + lastName}</div>
+                  <div className="px-4 py-2">{profile?.firstName + " " + profile?.lastName}</div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Gender</div>
-                  <div className="px-4 py-2">{gender}</div>
+                  <div className="px-4 py-2">{profile?.gender}</div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Contact No.</div>
-                  <div className="px-4 py-2">{phone}</div>
+                  <div className="px-4 py-2">{profile?.phone}</div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Address</div>
-                  <div className="px-4 py-2">{address}</div>
+                  <div className="px-4 py-2">{profile?.address}</div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Email</div>
                   <div className="px-4 py-2">
-                    <p>{email}</p>
+                    <p>{profile?.email}</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Birthday</div>
-                  <div className="px-4 py-2">{birthDate}</div>
+                  <div className="px-4 py-2">{profile?.birthDate}</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div>}
+    </>
+    
   );
 };
 

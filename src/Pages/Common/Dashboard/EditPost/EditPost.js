@@ -72,7 +72,7 @@ const EditPost = () => {
         </div>
         <div className="text-right">
           <button type="submit" className="px-4 py-2 bg-gray-700 rounded text-white hover:bg-gray-900">
-            Post Now
+            Update
           </button>
         </div>
       </form>}

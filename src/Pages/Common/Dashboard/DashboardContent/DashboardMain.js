@@ -94,46 +94,6 @@ const DashboardMain = () => {
       </table>
       {!myPosts.length&&<h1 className="text-center p-4 text-xl"> You have no post</h1>}
           </div>
-        <div className="bg-white">
-          <div className="p-5">
-            <span className="p-2">
-              <h1>this is for test purpose</h1>
-            </span>
-            <span className="p-2">
-              <h1>this is for test purpose</h1>
-            </span>
-            <span className="p-2">
-              <h1>this is for test purpose</h1>
-            </span>
-            <span className="p-2">
-              <h1>this is for test purpose</h1>
-            </span>
-            <span className="p-2">
-              <h1>this is for test purpose</h1>
-            </span>
-            <span className="p-2">
-              <h1>this is for test purpose</h1>
-            </span>
-            <span className="p-2">
-              <h1>this is for test purpose</h1>
-            </span>
-            <span className="p-2">
-              <h1>this is for test purpose</h1>
-            </span>
-            <span className="p-2">
-              <h1>this is for test purpose</h1>
-            </span>
-            <span className="p-2">
-              <h1>this is for test purpose</h1>
-            </span>
-            <span className="p-2">
-              <h1>this is for test purpose</h1>
-            </span>
-            <span className="p-2">
-              <h1>this is for test purpose</h1>
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   );

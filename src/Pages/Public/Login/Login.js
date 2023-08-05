@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { toasts, loginUser, clearErrors, isAuthenticated } = useAuth();
+  const { toasts, loginUser, clearErrors, isAuthenticated,isAuthLoading} = useAuth();
 
   const validationSchema = Yup.object().shape({
     password: Yup.string()
@@ -80,10 +80,10 @@ const Login = () => {
           </Link>
           <div className="mt-6">
             <button
-              disabled={errors.length}
+              disabled={errors.length|| isAuthLoading}
               className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
             >
-              Login
+               {isAuthLoading?'Loading...':'Login'}
             </button>
           </div>
         </form>

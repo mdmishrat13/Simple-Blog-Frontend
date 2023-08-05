@@ -9,7 +9,6 @@ const Profile = () => {
   if (isAuthLoading) {
     return <h1 className="text-center">Loading....</h1>;
   }
-  console.log(currentUser);
   const { firstName, lastName, email,bio,phone,birthDate,gender,pic,address} = currentUser;
 
   return (

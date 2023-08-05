@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import useComment from "../../../middlewares/commentContextHooks";
 import useAuth from "../../../middlewares/authContextHooks";
 import useReact from "../../../middlewares/reactsContextHooks";
+import { Link } from "react-router-dom";
 
 const Feed = ({ feed }) => {
   const [commentExpand, setCommentExpand] = useState(false);
@@ -29,10 +30,11 @@ const Feed = ({ feed }) => {
     getDisLikes,
     checkDisLiked,
   } = useReact();
-  const {currentUser}= useAuth()
   const [likes, setLikes] = useState([]);
   const [comment,setComment] = useState([])
   const [disLikes, setDisLikes] = useState([]);
+  const [isLikeLoading,setIsLikeLoading] = useState(false)
+  const [isDisLikeLoading,setIsDisLikeLoading] = useState(false)
 
   const fetchLiked = async () => {
     const data = await checkLiked(feed._id);
@@ -78,6 +80,7 @@ const Feed = ({ feed }) => {
   };
 
   const handleLike = async () => {
+    setIsLikeLoading(true)
     if (!liked) {
       const newLikes = await createLike(feed._id);
       setLiked(true);
@@ -85,15 +88,18 @@ const Feed = ({ feed }) => {
       setDisLiked(false)
       const newDisLikes = disLikes.filter(disLike=>disLike.user !== newLikes.user)
       setDisLikes(newDisLikes)
+      setIsLikeLoading(false)
     }
     if (liked) {
       const removedLikes = await removeLike(feed._id);
       setLiked(false);
       const newLikes = likes.filter((like) => like._id !== removedLikes._id);
       setLikes(newLikes);
+      setIsLikeLoading(false)
     }
   };
   const handleDisLike = async () => {
+    setIsDisLikeLoading(true)
     if (!disLiked) {
       const newDisLikes = await createDisLike(feed._id);
       setDisLiked(true);
@@ -101,19 +107,20 @@ const Feed = ({ feed }) => {
       setDisLikes([...disLikes, newDisLikes]);
       const newLikes =likes.filter(like=>like.user !== newDisLikes.user)
       setLikes(newLikes)
+      setIsDisLikeLoading(false)
     }
     if (disLiked) {
       const removedLikes = await removeDisLike(feed._id);
       setDisLiked(false);
       const newDisLikes = disLikes.filter((like) => like._id !== removedLikes._id);
       setDisLikes(newDisLikes);
+      setIsDisLikeLoading(false)
     }
 
   };
 
 
   const handleDelete = async(id)=>{
-    console.log('clicked')
     const sure = window.confirm('Are you sure?')
     if (sure){
       const deletedComment = await deleteComment(id)
@@ -131,9 +138,11 @@ const Feed = ({ feed }) => {
           className="w-8 h-8 object-cover overflow-hidden rounded-lg"
         />
         <div>
+          <Link to={`/user/profile/${feed?.user?._id}`}>
           <p className="font-sm font-bold text-gray-600 m-0 p-0">
             {feed.user?.firstName + " " + feed.user?.lastName}
           </p>
+          </Link>
           <p className="font-medium text-sm m-0 text-gray-500 p-0">Student</p>
         </div>
       </div>
@@ -150,13 +159,13 @@ const Feed = ({ feed }) => {
           >
               <AiOutlineArrowUp className={!liked?"text-2xl block text-center hover:text-green-500":"text-2xl block text-green-600 bg-gray-300 text-center"}/>
             
-            <p className="text-xl">{likes?.length}</p>
+            <p className="text-xl">{isLikeLoading?'...':likes?.length}</p>
           </button>
           <button onClick={handleDisLike} className="flex items-center justify-center gap-1">
             <AiOutlineArrowDown
               className={!disLiked?"text-2xl block hover:text-red-500 text-center":"text-2xl block text-red-600 bg-gray-300 text-center"}
             />
-            <p className="text-xl">{disLikes?.length}</p>
+            <p className="text-xl">{isDisLikeLoading?'...':disLikes?.length}</p>
           </button>
         </div>
         <button

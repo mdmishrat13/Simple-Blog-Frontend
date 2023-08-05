@@ -10,7 +10,7 @@ import parse from "date-fns/parse";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { toasts, registerUser, clearErrors, isAuthenticated, currentUser } =
+  const { toasts, registerUser, clearErrors, isAuthenticated,isAuthLoading} =
     useAuth();
   const navigate = useNavigate();
 
@@ -20,13 +20,13 @@ const Register = () => {
     email: Yup.string().required("Email is required!"),
     gender:Yup.string().required().nullable(),
     birthDate: Yup.date()
-    // .transform(function (value, originalValue) {
-    //   if (this.isType(value)) {
-    //     return value;
-    //   }
-    //   const result = parse(originalValue, "dd.MM.yyyy", new Date());
-    //   return result;
-    // })
+    .transform(function (value, originalValue) {
+      if (this.isType(value)) {
+        return value;
+      }
+      const result = parse(originalValue, "dd.MM.yyyy", new Date());
+      return result;
+    })
     .typeError("please enter a valid date")
     .required()
     .min("1969-11-13", "Date is too early"),
@@ -221,10 +221,11 @@ const Register = () => {
           </div>
           <div className="mt-6">
             <button
+            disabled={errors.length||isAuthLoading}
               type="submit"
               className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
             >
-              Register
+             {isAuthLoading?'Loading...':'Register'}
             </button>
           </div>
         </form>

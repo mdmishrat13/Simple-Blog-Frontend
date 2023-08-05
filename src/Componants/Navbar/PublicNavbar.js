@@ -10,7 +10,7 @@ const PublicNavbar = () => {
                 <div>
                     <div className="flex items-center justify-between py-3 md:py-5 md:block">
                         <Link to='/'>
-                            <h2 className="text-2xl font-bold">LOGO</h2>
+                            <h2 className="text-2xl font-bold">Connects</h2>
                         </Link>
                         <div className="md:hidden">
                             <button
@@ -57,15 +57,6 @@ const PublicNavbar = () => {
                         }`}
                     >
                         <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                            <li className="text-gray-600 hover:text-blue-600">
-                                <Link to='/'>Home</Link>
-                            </li>
-                            <li className="text-gray-600 hover:text-blue-600">
-                                <Link to='/'>Blog</Link>
-                            </li>
-                            <li className="text-gray-600 hover:text-blue-600">
-                                <Link to='/'>About US</Link>
-                            </li>
                             <li className="text-gray-600 hover:text-blue-600">
                                 <Link to='/login'>Login</Link>
                             </li>
